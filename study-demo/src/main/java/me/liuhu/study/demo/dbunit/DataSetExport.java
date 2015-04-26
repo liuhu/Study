@@ -6,7 +6,6 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.springframework.core.io.ClassPathResource;
 import org.unitils.core.Unitils;
 import org.unitils.dbunit.DbUnitModule;
-
 import java.io.*;
 
 public class DataSetExport {
@@ -38,8 +37,10 @@ public class DataSetExport {
 
             // 通过sql导出
             //
-            File file = createDestFile(tableName);
+            //File file = createDestFile(tableName);
+            File file = new File("");
             FlatXmlDataSet.write(dataSet, new FileOutputStream(file));
+            System.out.print(dataSet);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +74,7 @@ public class DataSetExport {
                 System.out.println("表名不能为空");
             } else {
                 DataSetExport exportData = new DataSetExport();
-                String[] table = tableName.split(",");
+                String[] table = tableName.split(";");
 
                 for (int i = 0; i < table.length; i++) {
 

@@ -41,6 +41,14 @@
             <artifactId>unitils-dbunit</artifactId>
         </dependency>
         <!-- 单元测试 -->
+
+        <!--数据库连接-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+        </dependency>
+        <!--数据库连接-->
+
     </dependencies>
 
     <build>

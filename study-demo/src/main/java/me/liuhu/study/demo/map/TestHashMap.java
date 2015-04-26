@@ -1,5 +1,6 @@
 package me.liuhu.study.demo.map;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 public class TestHashMap {
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("a","a");
+        map.put("a", "a");
         System.out.print(map);
     }
 }
