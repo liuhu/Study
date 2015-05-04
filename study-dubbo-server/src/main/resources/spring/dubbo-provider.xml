@@ -17,8 +17,8 @@
     <dubbo:provider timeout="10000" retries="0"/>
 
     <!--暴露基本接口-->
-    <dubbo:service ref="operateBigDecimalProvider" interface="me.liuhu.Provider"  version="2.0.0"/>
+    <dubbo:service ref="compareProvider" interface="me.liuhu.provider.CompareProvider"  version="2.0.0"/>
 
-    <bean id="operateBigDecimalProvider" class="me.liuhu.ProviderImpl" autowire="byType"/>
+    <bean id="compareProvider" class="me.liuhu.CompareProviderImpl" autowire="byType"/>
 
 </beans>

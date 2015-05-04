@@ -1,5 +1,7 @@
 package me.liuhu;
 
+import me.liuhu.bo.CompareBO;
+import me.liuhu.provider.CompareProvider;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
@@ -14,12 +16,20 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring-config.xml"});
-        Provider provider = context.getBean(Provider.class);
+        CompareProvider compareProvider = context.getBean(CompareProvider.class);
         BigDecimal a = new BigDecimal(0.001);
         BigDecimal b = new BigDecimal(0.001);
-        if (provider.compareBigDecimal(a, b)){
+        if (compareProvider.compareBigDecimal(a, b)){
             System.out.println("两值相等");
         }else {
+            System.out.println("不等");
+        }
+        CompareBO compareBO = new CompareBO();
+        compareBO.setA(a);
+        compareBO.setB(b);
+        if (compareProvider.compareBeans(compareBO)){
+            System.out.println("两值相等");
+        }else{
             System.out.println("不等");
         }
     }

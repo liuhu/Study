@@ -16,7 +16,7 @@
     <dubbo:registry protocol="redis" address="127.0.0.1:6379"/>
 
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference id="operateBigDecimalProvider" interface="me.liuhu.Provider" />
+    <dubbo:reference id="compareProvider" interface="me.liuhu.provider.CompareProvider" version="2.0.0"/>
 
     <!-- 点对点直连
     <dubbo:reference id="operateBigDecimalProvider" interface="me.liuhu.Provider"
