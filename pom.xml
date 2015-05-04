@@ -17,6 +17,7 @@
         <module>study-demo</module>
         <module>study-dubbo-client</module>
         <module>study-dubbo-server</module>
+        <module>study-dubbo-api</module>
     </modules>
 
     <!-- 属性定义,(模块版本管理） -->
@@ -30,12 +31,21 @@
         <zxing.version>2.1</zxing.version>
         <unitils.version>3.3</unitils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <study-dubbo-api.version>1.0.0-SNAPSHOT</study-dubbo-api.version>
     </properties>
-
 
     <!-- 依赖管理，所有引用的jar在这里定 -->
     <dependencyManagement>
         <dependencies>
+
+            <!--业务内部依赖-->
+            <dependency>
+                <groupId>me.liuhu</groupId>
+                <artifactId>study-dubbo-api</artifactId>
+                <version>${study-dubbo-api.version}</version>
+            </dependency>
+            <!--业务内部依赖-->
+
             <!--Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>

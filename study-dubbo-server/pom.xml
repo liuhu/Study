@@ -12,6 +12,12 @@
 
 
   <dependencies>
+
+    <dependency>
+      <groupId>me.liuhu</groupId>
+      <artifactId>study-dubbo-api</artifactId>
+    </dependency>
+
     <!--spring-->
     <dependency>
       <groupId>org.springframework</groupId>
