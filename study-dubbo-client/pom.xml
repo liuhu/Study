@@ -9,13 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>study-dubbo</artifactId>
-    <dependencies>
-        <!--spring-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
+    <artifactId>study-dubbo-client</artifactId>
 
-    </dependencies>
+
 </project>

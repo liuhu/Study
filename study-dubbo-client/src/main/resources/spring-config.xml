@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="foo.bar"/>
+
+    <dubbo:application name="acct-CTB"/>
+
+    <!-- which service to consume? -->
+    <dubbo:reference id="commissionProvider" interface="com.ofpay.acct.commission.provider.CommissionProvider"
+                     url="dubbo://172.17.4.32:20881"/>
+    <dubbo:reference id="tradeProvider" interface="com.ofpay.acct.trade.provider.TradeProvider" timeout="1000000"
+                     check="false" url="dubbo://172.19.66.31:20880" version="2.0.0"/>
+    <dubbo:reference id="paymentProvider" interface="com.ofpay.acct.trade.provider.PaymentProvider" timeout="10000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+    <dubbo:reference id="acctPointProvider" interface="com.ofpay.acct.trade.provider.AcctPointProvider" timeout="10000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+    <dubbo:reference id="fundsRecordProvider" interface="com.ofpay.acct.trade.provider.FundsRecordProvider"
+                     timeout="100000000" check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+
+    <dubbo:reference id="userQueryProvider" interface="com.ofpay.acct.user.provider.UserQueryProvider" timeout="10000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+
+    <!--    <dubbo:reference id="crmPayManageProvider" interface="com.ofpay.acct.crm.pay.provider.CrmPayManageProvider"
+                         timeout="10000" check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>-->
+
+    <dubbo:reference id="payOrderProvider" interface="com.ofpay.acct.pay.provider.PayOrderProvider" timeout="10000"
+                     check="false" url="dubbo://127.0.0.1:20880"/>
+    <!-- <dubbo:reference id="depositProvider" interface="com.ofpay.acct.trade.provider.DepositProvider" timeout="500000"
+                       check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>-->
+    <dubbo:reference id="userProvider" interface="com.ofpay.acct.user.provider.UserProvider" timeout="10000000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+
+    <dubbo:reference id="tenpayBatchTransProvider"
+                     interface="com.ofpay.acct.batch.tenpay.provider.TenpayBatchTransProvider" timeout="20000"
+                     check="false" url="dubbo://192.168.111.184:20880"/>
+    <dubbo:reference id="debtProvider" interface="com.ofpay.acct.debt.provider.DebtProvider" timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+    <dubbo:reference id="debtQueryProviderImpl" interface="com.ofpay.acct.debt.provider.DebtQueryProvider"
+                     timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20880"/>
+    <dubbo:reference id="acctRecordQueryProvider" interface=" com.ofpay.acct.trade.provider.AcctRecordQueryProvider"
+                     timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20881"/>
+    <dubbo:reference id="tradeExportProvider" interface="com.ofpay.acct.trade.provider.TradeExportProvider"
+                     timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20880"/>
+    <dubbo:reference id="userRemitProvider" interface="com.ofpay.acct.user.provider.UserRemitProvider" timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>
+
+    <dubbo:reference id="paymentQueryProvider" interface="com.ofpay.acct.trade.provider.PaymentQueryProvider"
+                     timeout="400000"
+                     check="false" url="dubbo://127.0.0.1:20880"/>
+    <!--   <dubbo:reference id="tradeQueryProvider" interface="com.ofpay.acct.trade.provider.TradeQueryProvider" timeout="400000"
+                        check="false" url="dubbo://127.0.0.1:20880" version="2.0.0"/>-->
+    <!--<dubbo:reference id="tradeProvider" interface="com.ofpay.acct.trade.provider.TradeProvider" timeout="20000" check="false" url="dubbo://127.0.0.1:208800"  version="2.0.0"/>-->
+    <!--    <dubbo:reference id="payFinancialPaymentProvider"
+                         interface="com.ofpay.acct.pay.provider.PayFinancialPaymentProvider"  timeout="10000"
+                         check="false" url="dubbo://192.168.111.184:20880"/>-->
+
+    <dubbo:reference interface="com.ofpay.acct.trade.provider.TransferQueryProvider" id="transferQueryProvider"
+                     timeout="1000000" version="2.0.0" url="127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.ofpay.acct.trade.provider.PayTradeOrderNotifyProvider"
+                     id="payTradeOrderNotifyProvider"
+                     timeout="1000000" url="127.0.0.1:20880"/>
+
+
+</beans>
