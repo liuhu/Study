@@ -15,7 +15,8 @@
     <modules>
         <module>study-junit</module>
         <module>study-demo</module>
-        <module>study-dubbo</module>
+        <module>study-dubbo-client</module>
+        <module>study-dubbo-server</module>
     </modules>
 
     <!-- 属性定义,(模块版本管理） -->
@@ -25,7 +26,7 @@
         <struts.version>1.2.4</struts.version>
         <p6spy.version>1.3</p6spy.version>
         <sqlprofiler.version>0.3</sqlprofiler.version>
-        <dubbo.version>2.4.10</dubbo.version>
+        <dubbo.version>2.5.3</dubbo.version>
         <zxing.version>2.1</zxing.version>
         <unitils.version>3.3</unitils.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jms</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
             <!--Spring -->
@@ -173,42 +179,6 @@
                 </exclusions>
             </dependency>
 
-            <dependency>
-                <groupId>com.alibaba.cobar</groupId>
-                <artifactId>cobar-client</artifactId>
-                <version>1.0.3</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>spring</artifactId>
-                        <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>curator-framework</artifactId>
-                        <groupId>com.netflix.curator</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>xmemcached</artifactId>
-                        <groupId>com.googlecode.xmemcached</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>cxf-rt-frontend-simple</artifactId>
-                        <groupId>org.apache.cxf</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>libthrift</artifactId>
-                        <groupId>org.apache.thrift</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                        <groupId>org.apache.cxf</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
             <!-- file up and download -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -221,6 +191,51 @@
                 <version>0.1.50</version>
             </dependency>
             <!-- file up and download -->
+
+            <!--redis-->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+            <!--redis-->
+
+            <!--pool 对象持久化-->
+            <dependency>
+                <groupId>commons-pool</groupId>
+                <artifactId>commons-pool</artifactId>
+                <version>1.6</version>
+            </dependency>
+            <!--pool 对象持久化-->
+
+            <!--redis-->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.5.0.RELEASE</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--redis-->
+
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -311,6 +326,15 @@
                 </configuration>
             </plugin>
 
+            <!--编译-->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
