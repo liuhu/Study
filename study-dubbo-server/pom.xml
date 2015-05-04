@@ -34,6 +34,27 @@
     </dependency>
     <!--dubbo-->
 
+    <!--redis-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+    </dependency>
+    <!--redis-->
+
+    <!--spring-redis-->
+    <dependency>
+       <groupId>org.springframework.data</groupId>
+       <artifactId>spring-data-redis</artifactId>
+    </dependency>
+    <!--spring-redis-->
+
+    <!--pool 连接池-->
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+    </dependency>
+    <!--pool 连接池-->
+
   </dependencies>
   <build>
     <finalName>study-dubbo-server</finalName>
