@@ -12,14 +12,14 @@
     <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="dubbo-client-app"  />
 
-    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
+    <!-- 注册中心暴露发现服务地址 -->
     <dubbo:registry protocol="redis" address="127.0.0.1:6379"/>
 
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
     <dubbo:reference id="compareProvider" interface="me.liuhu.provider.CompareProvider" version="2.0.0"/>
 
-    <!-- 点对点直连
-    <dubbo:reference id="operateBigDecimalProvider" interface="me.liuhu.Provider"
-                     url="dubbo://127.0.0.1:20880" version="2.0.0"/> -->
+    <!-- 点对点直连-->
+    <dubbo:reference id="compareProviderPointToPint" interface="me.liuhu.provider.CompareProvider"
+                     url="dubbo://127.0.0.1:20880" version="2.0.0"/>
 
 </beans>

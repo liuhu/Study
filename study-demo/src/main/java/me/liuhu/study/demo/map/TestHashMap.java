@@ -1,5 +1,7 @@
 package me.liuhu.study.demo.map;
 
+import me.liuhu.study.demo.BO.TradeBo;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,5 +18,12 @@ public class TestHashMap {
         Map<String, String> map = new HashMap<String, String>();
         map.put("a", "a");
         System.out.print(map);
+        TradeBo t = new TradeBo();
+        t.setB("a");
+        if (t.getA() == 1){
+            System.out.print(t);
+        }
     }
+
 }
+

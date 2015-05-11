@@ -16,7 +16,10 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring-config.xml"});
-        CompareProvider compareProvider = context.getBean(CompareProvider.class);
+        // 通过注册中心获取
+        CompareProvider compareProvider = context.getBean("compareProvider", CompareProvider.class);
+        // Dubbo 直连
+        CompareProvider compareProviderPointToPint = context.getBean("compareProviderPointToPint", CompareProvider.class);
         BigDecimal a = new BigDecimal(0.001);
         BigDecimal b = new BigDecimal(0.001);
         if (compareProvider.compareBigDecimal(a, b)){
@@ -27,7 +30,7 @@ public class BigDecimalTest {
         CompareBO compareBO = new CompareBO();
         compareBO.setA(a);
         compareBO.setB(b);
-        if (compareProvider.compareBeans(compareBO)){
+        if (compareProviderPointToPint.compareBeans(compareBO)){
             System.out.println("两值相等");
         }else{
             System.out.println("不等");
