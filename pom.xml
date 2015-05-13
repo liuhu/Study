@@ -18,6 +18,9 @@
         <module>study-dubbo-client</module>
         <module>study-dubbo-server</module>
         <module>study-dubbo-api</module>
+        <module>study-mq-producer</module>
+        <module>study-mq-consumer</module>
+        <module>study-mq-domain</module>
     </modules>
 
     <!-- 属性定义,(模块版本管理） -->
@@ -62,6 +65,13 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
@@ -244,7 +254,26 @@
             </dependency>
             <!--redis-->
 
+            <!--activemq-->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>5.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xbean</groupId>
+                <artifactId>xbean-spring</artifactId>
+                <version>3.12</version>
+            </dependency>
+            <!--activemq-->
 
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.4</version>
+            </dependency>
+            <!--fastjson-->
 
         </dependencies>
     </dependencyManagement>

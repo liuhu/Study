@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <!-- 自动装载com.aqlu包下的所有Bean -->
+       <context:component-scan base-package="me.liuhu"/>
+
+       <!-- 加载配置文件 -->
+       <context:property-placeholder system-properties-mode="OVERRIDE" ignore-resource-not-found="true"
+                                     location="classpath:config.properties"/>
+
+       <!-- 定义消息的目的地址（queue）-->
+       <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
+              <!-- queue名字 -->
+              <constructor-arg value="TestQueue"/>
+       </bean>
+
+       <!-- 定义消息的目的地址（topic） -->
+       <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
+              <!-- topic名字 -->
+              <constructor-arg value="testTopic"/>
+       </bean>
+
+       <!-- 定义消息的目的地址（虚拟topic）-->
+       <bean id="testVirtualTopic" class="org.apache.activemq.command.ActiveMQTopic">
+              <!-- topic名字,注意这里必须要带上VirtualTopic. -->
+              <constructor-arg value="VirtualTopic.testTopic"/>
+       </bean>
+
+       <!-- ActiveMQ TCP连接工厂 -->
+       <bean id="consumerConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+              <property name="brokerURL" value="${activemq.tradecenter.broker.url}"/>
+              <!--客户端标识-->
+              <property name="clientID" value="${consumer.clientId}"/>
+       </bean>
+
+       <!-- 配置具有session缓存给你的连接工厂 -->
+       <bean id="consumerCachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+              <property name="targetConnectionFactory" ref="consumerConnectionFactory"/>
+              <property name="sessionCacheSize" value="${consumer.sessionCacheSize}"/>
+       </bean>
+
+       <!-- 简单消息转换器，能够对String、byte[]、Map、Serializable类型的消息自动转换 -->
+       <bean id="simpleMessageConverter" class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+
+       <!--配置生产者消息发送模板-->
+       <bean id="taskContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+              <!-- 指定连接工厂-->
+              <property name="connectionFactory" ref="consumerConnectionFactory"/>
+              <!-- 目的地址，queue或者topic -->
+              <property name="destination" ref="testTopic"/>
+              <!-- 指定消息消费监听对象，实现MessageListener 接口 -->
+              <property name="messageListener" ref="messageConsumer"/>
+              <!-- 配置监听对象的并发数 即消费者初始化最小数目-->
+              <property name="concurrentConsumers" value="${consumer.concurrentConsumers}"/>
+              <!-- 配置监听对象的最大并发数 即消费者最大数目-->
+              <property name="maxConcurrentConsumers" value="${consumer.maxConcurrentConsumers}"/>
+              <!-- 客户端标识，不配的话会使用连接工程配置的clientID，连接工厂也没配的话会自动删除一个
+              <property name="clientId" value="${consumer.clientId}"/>-->
+              <!-- 在使用Spring的情况下，AUTO确认模式会在消息进入业务方法前进行回应，Client则会在之后，DUL_OK可以延迟消息回应并批量处理，但这可能导致消息重复发送。 -->
+              <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>
+              <!-- 是否开启事务，默认false-->
+              <property name="sessionTransacted" value="false"/>
+              <!-- 是否持久化订阅，此属性仅在订阅topic时有效；持久化订阅时，监听对象的并发数只能为1；在使用queue消费时，请注释掉，否则会影响启动-->
+              <property name="subscriptionDurable" value="true"/>
+              <!-- 持久化订阅者名称；持久化订阅开启才生效，持久化订阅时必配；在使用queue消费时，请注释掉，否则会影响启动-->
+              <property name="durableSubscriptionName" value="node1"/>
+       </bean>
+</beans>
