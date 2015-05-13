@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <!-- 自动装载com.aqlu包下的所有Bean -->
+       <context:component-scan base-package="me.liuhu"/>
+
+       <!-- 加载配置文件 -->
+       <context:property-placeholder system-properties-mode="OVERRIDE" ignore-resource-not-found="true"
+                                     location="classpath:config.properties"/>
+
+       <!-- 定义消息的目的地址（queue）-->
+       <bean id="testQueue" class="org.apache.activemq.command.ActiveMQQueue">
+              <!-- queue名字 -->
+              <constructor-arg value="TestQueue"/>
+       </bean>
+
+       <!-- 定义消息的目的地址（topic） -->
+       <bean id="testTopic" class="org.apache.activemq.command.ActiveMQTopic">
+              <!-- topic名字 -->
+              <constructor-arg value="testTopic"/>
+       </bean>
+
+       <!-- 定义消息的目的地址（虚拟topic）-->
+       <bean id="testVirtualTopic" class="org.apache.activemq.command.ActiveMQTopic">
+              <!-- topic名字,注意这里必须要带上VirtualTopic. -->
+              <constructor-arg value="VirtualTopic.testTopic"/>
+       </bean>
+
+       <!-- ActiveMQ TCP连接工厂 -->
+       <bean id="producerConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+              <property name="brokerURL" value="${activemq.tradecenter.broker.url}"/>
+              <!-- 对PERSISTENT的消息进行异步发送(NON_PERSISTENT消息默认异步发送) -->
+              <property name="useAsyncSend" value="true"/>
+              <property name="messagePrioritySupported" value="false"/>
+       </bean>
+
+       <!-- 配置具有session缓存给你的连接工厂 -->
+       <bean id="producerCachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+              <property name="targetConnectionFactory" ref="producerConnectionFactory"/>
+              <property name="sessionCacheSize" value="${producer.sessionCacheSize}"/>
+       </bean>
+
+       <!-- 简单消息转换器，能够对String、byte[]、Map、Serializable类型的消息自动转换 -->
+       <bean id="simpleMessageConverter" class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
+
+       <!--配置生产者消息发送模板-->
+       <bean id="producerJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+              <!-- 指定连接工厂 -->
+              <property name="connectionFactory" ref="producerCachingConnectionFactory"/>
+              <!-- 是否启用Qos; 只有开启Qos时，设置的deliveryMode, priority, timeToLive才能生效 -->
+              <property name="explicitQosEnabled" value="true"/>
+              <!-- 设置消息是否需要持久化, 默认为PERSISTENT -->
+              <property name="deliveryPersistent" value="true"/>
+              <!-- 设置优先级, 默认为4 越高优先级越高。kahaDB只支持3种优先级，<4,=4,>4 -->
+              <property name="priority" value="4"/>
+              <!-- 消息有效时间，单位毫秒，默认是不过期；超过消息有效期的消息将被broker“删除”；强烈建议明确设置此参数，目前我司的业务场景消息如果在一小时还未被处理的话，大部分情况都没有价值了 -->
+              <property name="timeToLive" value="${producer.timeToLive}"/>
+              <!-- 指定消息转换器 -->
+              <property name="messageConverter" ref="simpleMessageConverter"/>
+       </bean>
+</beans>
