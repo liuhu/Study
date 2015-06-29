@@ -21,6 +21,9 @@
         <module>study-mq-producer</module>
         <module>study-mq-consumer</module>
         <module>study-mq-domain</module>
+        <module>study-dubbo-test-tool</module>
+        <module>study-spring-mvc</module>
+        <module>study-ibatis-tool</module>
     </modules>
 
     <!-- 属性定义,(模块版本管理） -->
@@ -70,8 +73,11 @@
                 <artifactId>spring-context</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
-
-
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
@@ -93,6 +99,15 @@
                 <version>${springframework.version}</version>
             </dependency>
             <!--Spring -->
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1-b02</version>
+                <type>jar</type>
+                <scope>provided</scope>
+            </dependency>
+
 
             <!-- 数据库连接 -->
             <dependency>
